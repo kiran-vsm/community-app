@@ -258,6 +258,7 @@
     "label.button.previous": "Previous",
     "label.button.next": "Next",
     "label.button.save": "Submit",
+    "label.button.update": "Update",
     "label.button.searchdata": "Search Data",
     "label.button.cancel": "Cancel",
     "label.button.edit": "Edit",
@@ -4168,6 +4169,29 @@
     "m_group": "Group",
     "m_loan": "Loan",
     "m_savings_account": "Savings Account",
+    
+    "#foodcourt":"",
+    "label.anchor.foodcourt":"Food Court",
+    "label.anchor.fooditems":"Food Items",
+    "label.button.create.food.items":"Create Food Items",
+    "label.heading.createfooditem":"Create Food Items",
+    "label.input.item":"Item",
+    "label.input.price":"Price",
+    "label.input.ratings":"Ratings",
+    "label.heading.items":"Items",
+    "label.heading.price":"Price",
+    "label.heading.ratings":"Ratings",
+    "label.anchor.food items":"Food Items",
+    "label.anchor.create.food.items":"Create Food Item",
+    "label.anchor.view":"View",
+    "label.heading.food.name":"Food Name",
+    "label.heading.food.price":"Food Price",
+    "label.heading.food.item":"Food Item",
+    "label.heading.food.ratings":"Food Ratings",
+    "label.anchor.edit":"Edit",
+    "label.heading.edit.food.item":"Edit Food Item",
+
+    "validation.msg.client.dateOfBirth.is.greater.than.date" : "Client date of birth can not be greater than the client submitted on date.",
 
     "": ""
 

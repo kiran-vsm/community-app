@@ -1,11 +1,10 @@
-<div class="col-md-12">
+<div class="col-md-12" ng-controller="CreateOfficeController">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li><a href="#/offices">{{'label.anchor.manageoffices' | translate}}</a></li>
         <li class="active">{{'label.anchor.createoffice' | translate}}</li>
     </ul>
-	<form name="createofficeform" novalidate="" class="form-horizontal well" ng-controller="CreateOfficeController"
-	      rc-submit="submit()">
+	<form name="createofficeform" novalidate="" class="form-horizontal well"  rc-submit="submit()">
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend>{{'label.heading.createoffice' | translate}}</legend>
@@ -48,7 +47,153 @@
 	                <div class="col-sm-3">
 	                    <input id="externalId" type="text" name="externalId" class="form-control" ng-model="formData.externalId">
 	                </div>
-	            </div>
+				</div>
+				
+				<div ng-if="enableAddress" class="form-group">
+					<div class="form-group">
+						<div class="control-label col-sm-2">
+							<h3><strong>{{ 'label.input.address' | translate }}</strong>&nbsp;<a ng-if="addressArray.length == 0" href="javascript:void(0)" ng-click="addAddress()">&nbsp;<i class="icon-plus icon-white"></i></a></h3>
+						</div>
+					</div>
+					
+					<div ng-repeat="addr in addressArray">
+						&nbsp;&nbsp; <a ng-click="removeAddress($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+						<div class="form-group" ng-show="addressType">
+							<div class="control-label col-sm-2">
+								<label>{{ 'label.input.addressType' | translate }}</label>
+							</div>
+							<div class="col-sm-3"  >
+								<select chosen="addressTypes" ng-model="addressArray[$index].addressTypeId"  class="form-control"
+										ng-options="addressType.id as addressType.name for addressType in addressTypes track by addressType.id"
+										value="addressTypeId"  ></select>
+							</div>
+						</div>
+
+							<div class="form-group" ng-show="street">
+								<div class="control-label col-sm-2">
+									<label>{{ 'label.input.street' | translate }}</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" name="street"  ng-model="addressArray[$index].street"  class="form-control"/>
+								</div>
+							
+							</div>
+
+							<div class="form-group" ng-show="addressLine1">
+								<label class="control-label col-sm-2" >{{ 'label.input.addressline1' | translate }}</label>
+
+								<div class="col-sm-3">
+									<input type="text"  name="addressline1" ng-model="addressArray[$index].addressLine1"  class="form-control">
+								</div>
+
+							</div>
+
+						<div class="form-group" ng-show="addressLine2">
+							<label class="control-label col-sm-2" >{{ 'label.input.addressline2' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="addressline2" ng-model="addressArray[$index].addressLine2"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="addressLine3">
+							<label class="control-label col-sm-2" >{{ 'label.input.addressline3' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="addressline3" ng-model="addressArray[$index].addressLine3"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="city">
+							<label class="control-label col-sm-2" >{{ 'label.input.city' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text" name="city" ng-model="addressArray[$index].city"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="townVillage">
+							<label class="control-label col-sm-2" >{{ 'label.input.town_village' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="town_village" ng-model="addressArray[$index].townVillage"  class="form-control">
+							</div>
+						</div>
+
+						<div class="form-group" ng-show="countryId">
+							<div class="control-label col-sm-2">
+								<label>{{ 'label.input.country' | translate }}</label>
+							</div>
+							<div class="col-sm-3" >
+								<select chosen="countryOptions"  ng-model="addressArray[$index].countryId"  class="form-control"
+										ng-options="countryOption.id as countryOption.name for countryOption in countryOptions track by countryOption.id"
+										value="countryId"></select>
+							</div>
+						</div>
+
+						<div class="form-group" ng-show="stateProvinceId">
+							<div class="control-label col-sm-2">
+								<label>{{ 'label.input.state_province' | translate }}</label>
+							</div>
+							<div class="col-sm-3" >
+								<select chosen="stateOptions"  ng-model="addressArray[$index].stateProvinceId"  class="form-control"
+										ng-options="stateOption.id as stateOption.name for stateOption in stateOptions track by stateOption.id"
+										value="stateProvinceId"></select>
+							</div>
+						</div>
+						
+						<div class="form-group" ng-show="countyDistrict">
+							<label class="control-label col-sm-2" >{{ 'label.input.county_district' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="county_district" ng-model="addressArray[$index].countyDistrict"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="postalCode">
+							<label class="control-label col-sm-2" >{{ 'label.input.postal_code' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="postal_code" ng-model="addressArray[$index].postalCode"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="latitude">
+							<label class="control-label col-sm-2" >{{ 'label.input.latitude' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="latitude" ng-model="addressArray[$index].latitude"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="longitude">
+							<label class="control-label col-sm-2" >{{ 'label.input.longitude' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="longitude" ng-model="addressArray[$index].longitude"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="isActive==true">
+
+							<label class="control-label col-sm-2" >{{'label.input.is_active' | translate}} </label>
+							<div class="col-sm-3">
+								<input class="input-mini-small" type="checkbox"
+									   ng-model="addressArray[$index].isActive">
+							</div>
+						</div>
+
+					</div>
+
+					
+				</div>
 	        <div class="col-md-offset-3">
 	            <a id="cancel" href="#/offices">
 	                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>

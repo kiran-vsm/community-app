@@ -1,0 +1,56 @@
+<div class="col-md-12" ng-controller="EditFoodItemController">
+    <ul class="breadcrumb">
+        <li><a href="#/fooditems">{{'label.anchor.food items' | translate}}</a></li>
+        <li><a href="#/fooditems/view/{{foodItemId}}">{{'label.anchor.view' | translate}}</a></li>
+        <li class="active">{{'label.anchor.edit' | translate}}</li>
+    </ul>
+    <div class="well">
+        <form name="editfooditemform" novalidate="" class="form-horizontal" rc-submit="update()">
+            <fieldset>
+                <legend>{{'label.heading.edit.food.item' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="item">{{'label.input.item' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="item" name="item" ng-model="formData.item" class="form-control"
+                            required />
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="editfooditemform" valattribute="item" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="price">{{'label.input.price' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="price" name="price" ng-model="formData.price" class="form-control"
+                            required late-Validate />
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="editfooditemform" valattribute="price" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="ratings">{{'label.input.ratings' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="ratings" name="ratings" ng-model="formData.ratings" class="form-control"
+                            required late-Validate />
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="editfooditemform" valattribute="ratings" />
+                    </div>
+                </div>
+                <div class="col-md-offset-3">
+                    <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="update" type="submit" class="btn btn-primary"
+                        has-permission='EDIT_FOOD_ITEMS'>{{'label.button.update' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

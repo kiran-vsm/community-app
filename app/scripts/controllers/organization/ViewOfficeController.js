@@ -3,6 +3,25 @@
         ViewOfficeController: function (scope, routeParams, route, location, resourceFactory) {
             scope.charges = [];
             
+            scope.addresses=[];
+            scope.view={};
+            var entityname="ADDRESS";
+            var subentity = "OFFICE";
+            resourceFactory.officeTemplateResource.getOfficeTemplate(function (data) {
+                scope.enableAddress = data.isAddressEnabled;
+                if(scope.enableAddress){
+                    resourceFactory.addressFieldConfiguration.get({entity:entityname, subentity: subentity},function(data){
+                        for(var i=0;i<data.length;i++){
+                            data[i].field='scope.view.'+data[i].field;
+                            eval(data[i].field+"="+data[i].is_enabled);
+                        }
+                    });
+                    resourceFactory.officeAddress.getAllAddresses({officeId: routeParams.id}, function(data) {
+                        scope.addresses=data;
+                    });
+                }
+            });
+
             resourceFactory.officeResource.get({officeId: routeParams.id}, function (data) {
                 scope.office = data;
             });
@@ -10,6 +29,7 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_office'}, function (data) {
                 scope.officedatatables = data;
             });
+
             scope.dataTableChange = function (officedatatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: officedatatable.registeredTableName,
                     entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
@@ -56,6 +76,18 @@
                     location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.office.id);
                 }
             };
+
+            scope.routeToAddAddress = function (){
+                location.path("/address/offices/"+routeParams.id);
+            };
+
+            scope.changeAddressStatus=function(addressId, status) {
+                var formdata = {};
+                formdata.isActive=!status;
+                resourceFactory.officeAddress.put({officeId:id, addressId: addressId},formdata,function(data) {
+                    route.reload();
+                })
+            }
         }
 
     });

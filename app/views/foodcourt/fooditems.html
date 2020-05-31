@@ -1,0 +1,24 @@
+<div class="col-md-12" ng-controller="FoodItemsController">
+    <ul class="breadcrumb">
+        <li>{{'label.anchor.foodcourt' | translate}}</li>
+        <li class="active">{{'label.anchor.fooditems' | translate}}</li>
+    </ul>
+    <a href="#/fooditems/create" class="btn btn-primary pull-right" has-permission='CREATE_FOOD_ITEMS'><i class="icon-plus icon-white"></i>{{'label.button.create.food.items' | translate}}</a>
+
+    <table class="table">
+        <thead>
+            <tr class="graybg"  >
+                <th>{{'label.heading.items' | translate}}</th>
+                <th>{{'label.heading.price' | translate}}</th>
+                <th>{{'label.heading.ratings' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pointer-main" ng-repeat="foodItem in foodItemsData">
+                <td class="pointer" data-ng-click="routeTo(foodItem.id)">{{foodItem.item}}</td>
+                <td class="pointer" data-ng-click="routeTo(foodItem.id)">{{foodItem.price}}</td>
+                <td class="pointer" data-ng-click="routeTo(foodItem.id)">{{foodItem.ratings}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

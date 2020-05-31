@@ -36,6 +36,9 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT'}
                     }),
+                    officeTemplateResource: defineResource(apiVer + "/offices/template", {}, {
+                        getOfficeTemplate: {method: 'GET'}
+                    }),
                     officeResource: defineResource(apiVer + "/offices/:officeId", {officeId: "@officeId"}, {
                         getAllOffices: {method: 'GET', params: {}, isArray: true},
                         getAllOfficesInAlphabeticalOrder: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
@@ -531,8 +534,16 @@
                             get:{method:'GET',params:{}}
                         }
                     ),
-                    addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity",{},{
+                    addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity/:subentity",{},{
                         get:{method:'GET',params:{},isArray:true }
+                    }),
+                    officeAddress:defineResource(apiVer+"/offices/:officeId/addresses",{officeId: '@officeId'},{
+                        post:{method:'POST',params:{type:'@type'}},
+                        getAllAddresses:{method:'GET',params:{},isArray:true},
+                        put:{method:'PUT',params:{}}
+                    }),
+                    officeAddressTemplate:defineResource(apiVer+"/offices/:officeId/addresses/template",{officeId: '@officeId'},{
+                        template:{method:'GET',params:{}}
                     }),
                     clientAddress:defineResource(apiVer+"/client/:clientId/addresses",{},{
 
@@ -617,11 +628,9 @@
                         put: {method: 'PUT', params:{}},
                         approve: {method: 'PUT', params:{command: 'approve'}}
                     }),
-
                     smsCampaignTemplateResource: defineResource(apiVer + "/smscampaigns/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-
                     smsCampaignResource: defineResource(apiVer + "/smscampaigns/:campaignId/:additionalParam", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
                         getAll: {method: 'GET', params: {}},
                         get: {method: 'GET', params: {}},
@@ -631,16 +640,21 @@
                         withCommand: {method: 'POST', params: {}},
                         delete: {method: 'DELETE', params: {}}
                     }),
-
                     smsResource: defineResource(apiVer + "/sms/:campaignId/messageByStatus", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
                         getByStatus: {method: 'GET', params:{}}
                     }),
-
                     entityDatatableChecksResource: defineResource(apiVer + "/entityDatatableChecks/:entityDatatableCheckId/:additionalParam", {entityDatatableCheckId: '@entityDatatableCheckId', additionalParam: '@additionalParam'}, {
                         getAll: {method: 'GET', params: {}},
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
                         delete: {method: 'DELETE', params: {}}
+                    }),
+                    foodItemsResource: defineResource(apiVer + "/fooditems/:foodItemId", { foodItemId: '@foodItemId' }, {
+                        save: { method: 'POST', params: {} },
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        get: { method: 'GET', params: {} },
+                        update: { method: 'PUT', params: {} },
+                        delete: { method:'DELETE', params: {} }
                     })
                 };
             }];

@@ -19,6 +19,7 @@
             scope.view={};
             scope.view.data=[];
             var entityname="ADDRESS";
+            var subentity = "CLIENT";
             formdata={};
 
 
@@ -28,7 +29,7 @@
                 if(scope.enableAddress===true)
                 {
 
-                    resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
+                    resourceFactory.addressFieldConfiguration.get({entity:entityname, subentity: subentity},function(data){
 
 
                         for(var i=0;i<data.length;i++)

@@ -1,77 +1,83 @@
-(function (module) {
+ (function (module) {
     mifosX.controllers = _.extend(module, {
         AddressFormController: function ($scope, resourceFactory, routeParams, location) {
-
             $scope.formData={};
+            $scope.formData.isActive=false;
             $scope.addressTypes=[];
             $scope.countryOptions=[];
             $scope.stateOptions=[];
-            $scope.addressTypeId={};
-            entityname="ADDRESS";
+            var entityname="ADDRESS";
+            var subentity = "CLIENT";
             $scope.editable=false;
-            clientId=routeParams.id;
-            resourceFactory.clientaddressFields.get(function(data){
-                $scope.addressTypes=data.addressTypeIdOptions;
-                $scope.countryOptions=data.countryIdOptions;
-                $scope.stateOptions=data.stateProvinceIdOptions;
+            var clientId = undefined;
+            var officeId = undefined;
+
+            if(!_.isUndefined(routeParams.subentity) && routeParams.subentity=='offices'){
+                subentity = 'OFFICE';
+                officeId = routeParams.id;
+                resourceFactory.officeAddressTemplate.template({officeId: officeId},function(template){
+                    addressTemplate(template);
+                });
+            }else{
+                clientId = routeParams.id;
+                resourceFactory.clientaddressFields.get(function(template){
+                    addressTemplate(template);
+                });
             }
-            )
 
+            function addressTemplate(template){
+                $scope.addressTypes=template.addressTypeIdOptions;
+                $scope.countryOptions=template.countryIdOptions;
+                $scope.stateOptions=template.stateProvinceIdOptions;
+            }
 
-            resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
-          
-
-
-                for(var i=0;i<data.length;i++)
-                {
-                    data[i].field='$scope.'+data[i].field;
+            $scope.viewFields = {};
+            resourceFactory.addressFieldConfiguration.get({entity:entityname, subentity: subentity},function(data){
+                for(var i=0;i<data.length;i++){
+                    data[i].field='$scope.viewFields.'+data[i].field;
                     eval(data[i].field+"="+data[i].is_enabled);
-
                 }
-
-
             })
-            $scope.routeTo=function()
-            {
-                location.path('/viewclient/'+clientId);
+
+            $scope.routeTo = function(){
+                if(!_.isUndefined(officeId)){
+                    location.path('/viewoffice/'+officeId);
+                }else{
+                    location.path('/viewclient/'+clientId);
+                }
             }
 
           
 
-            $scope.isEditRequired=function(addType)
-            {
-                resourceFactory.clientAddress.get({type:addType,clientId:routeParams.id,status:true},function(data)
-                {
-
-
-                    if(data[0])      // index is added just to sense whether it is empty or contains data    
-                    {
+            $scope.isEditRequired=function(){
+                resourceFactory.clientAddress.get({type:$scope.formData.addressTypeId,clientId:routeParams.id,status:true},function(data){
+                    if(data[0]){      // index is added just to sense whether it is empty or contains data    
                         $scope.editable=true;
-                    }
-                    else
-                    {
+                    } else {
                         $scope.editable=false;
                     }
                 })
             }
 
-            $scope.updateaddress=function()
-            {
-
+            $scope.updateaddress=function(){
                 $scope.formData.locale="en";
-                resourceFactory.clientAddress.put({'clientId': routeParams.id,'type':$scope.addressTypeId},$scope.formData,function (data) {
-
-                    location.path('/viewclient/'+routeParams.id);
+                resourceFactory.clientAddress.put({'clientId': routeParams.id,'type':$scope.formData.addressTypeId},$scope.formData,function (data) {
+                    $scope.routeTo();
                 });
             }
 
             $scope.submit = function () {
-
-                resourceFactory.clientAddress.save({'clientId': routeParams.id,'type':$scope.addressTypeId},$scope.formData,function (data) {
-
-                    location.path('/viewclient/'+clientId);
-                });
-
+                $scope.formData.locale="en";
+                if(!_.isUndefined(officeId)){
+                    resourceFactory.officeAddress.save({'officeId': routeParams.id,'type':$scope.formData.addressTypeId},$scope.formData,function (data) {
+                        $scope.routeTo();
+                    });
+                }else{
+                    resourceFactory.clientAddress.save({'clientId': routeParams.id,'type':$scope.formData.addressTypeId},$scope.formData,function (data) {
+                        $scope.routeTo();
+                    });
+                }
+               
             };
         }
 

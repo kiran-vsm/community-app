@@ -22,7 +22,8 @@
             scope.countryOptions=[];
             scope.stateOptions=[];
             scope.addressTypeId={};
-            entityname="ADDRESS";
+            var entityname="ADDRESS";
+            var subentity = "CLIENT";
             scope.addressArray=[];
             scope.formData.address=[];
             scope.datatables = [];
@@ -96,32 +97,19 @@
 
                 scope.enableAddress=data.isAddressEnabled;
 
-                if(scope.enableAddress===true)
-                {
+                if(scope.enableAddress===true){
                     scope.addressTypes=data.address.addressTypeIdOptions;
                     scope.countryOptions=data.address.countryIdOptions;
                     scope.stateOptions=data.address.stateProvinceIdOptions;
-
-                    resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
-
-
-
+                    resourceFactory.addressFieldConfiguration.get({entity:entityname, subentity: subentity},function(data){
                         for(var i=0;i<data.length;i++)
                         {
                             data[i].field='scope.'+data[i].field;
                             eval(data[i].field+"="+data[i].is_enabled);
 
                         }
-
-
-
-
-
                     })
-
-
                 }
-
             });
 
             scope.updateColumnHeaders = function(columnHeaderData) {
@@ -289,6 +277,8 @@
 
                 if(scope.enableAddress===true)
                 {
+                    scope.formData.address=[];
+
                     for(var i=0;i<scope.addressArray.length;i++)
                     {
                         var temp=new Object();
@@ -349,6 +339,10 @@
                             temp.isActive=scope.addressArray[i].isActive;
 
                         }
+                        if(_.isUndefined(temp.isActive)){
+                            temp.isActive = false;
+                        }
+
                         scope.formData.address.push(temp);
                     }
                 }

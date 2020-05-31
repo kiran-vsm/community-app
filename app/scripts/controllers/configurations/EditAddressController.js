@@ -9,58 +9,42 @@
             $scope.addressTypeId={};
             $scope.clients={};
             $scope.addressType={};
-            entityname="ADDRESS";
+            var entityname="ADDRESS";
+            var subentity = "CLIENT";
             $scope.addStatus="";
-            $scope.editable=false;
             clientId=routeParams.clientId;
             addresstypid=routeParams.addrType;
 
-
-            isActive={};
             var addressId=routeParams.addrId;
 
-            
             resourceFactory.clientaddressFields.get(function(data){
-                    $scope.addressTypes=data.addressTypeIdOptions;
-                    $scope.countryOptions=data.countryIdOptions;
-                    $scope.stateOptions=data.stateProvinceIdOptions;
-                }
-            )
+                $scope.addressTypes=data.addressTypeIdOptions;
+                $scope.countryOptions=data.countryIdOptions;
+                $scope.stateOptions=data.stateProvinceIdOptions;
+            });
 
-
-            resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
-
-
-
-
-                for(var i=0;i<data.length;i++)
-                {
+            resourceFactory.addressFieldConfiguration.get({entity:entityname, subentity: subentity},function(data){
+                for(var i=0;i<data.length;i++){
                     data[i].field='$scope.'+data[i].field;
                     eval(data[i].field+"="+data[i].is_enabled);
-
                 }
-
-
-
-            })
-            $scope.routeTo=function()
-            {
+                getClientAddress();
+            });
+            
+            $scope.routeTo=function(){
                 location.path('/viewclient/'+clientId);
             }
 
-
-
-
-                resourceFactory.clientAddress.get({type:addresstypid,clientId:clientId},function(data)
-                {
-
-
-
-                        $scope.editable=true;
+            function getClientAddress(){
+                resourceFactory.clientAddress.get({type:addresstypid,clientId:clientId},function(data){
                     for(var i=0;i<data.length;i++)
                     {
                         if(data[i].addressId==addressId)
                         {
+                            if(data[i].addressTypeId&&$scope.addressTypeId)
+                            {
+                                $scope.formData.addressTypeId=data[i].addressTypeId;
+                            }
                             if(data[i].street&&$scope.street)
                             {
                                 $scope.formData.street=data[i].street;
@@ -111,32 +95,21 @@
                             }
                             if(data[i].isActive&&$scope.isActive)
                             {
-                                isActive=data[i].isActive;
+                                $scope.formData.isActive = data[i].isActive;
                             }
                         }
                     }
-
-                    
-
-
                 });
-
-
-            $scope.updateaddress=function()
-            {
-                
+            }
+            
+            $scope.updateaddress=function(){
                $scope.formData.locale="en";
                 $scope.formData.addressId=addressId;
                 resourceFactory.clientAddress.put({'clientId': clientId},$scope.formData,function (data) {
-
                     location.path('/viewclient/'+clientId);
                 });
             }
-
-
         }
-
-
     });
     mifosX.ng.application.controller('EditAddressController', ['$scope','ResourceFactory', '$routeParams', '$location', mifosX.controllers.EditAddressController]).run(function ($log) {
         $log.info("EditAddressController initialized");

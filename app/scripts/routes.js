@@ -890,6 +890,9 @@
             .when('/address/:id', {
                 templateUrl: 'views/administration/AddressForm.html'
             })
+            .when('/address/:subentity/:id', {
+                templateUrl: 'views/administration/AddressForm.html'
+            })
             .when('/editAddress/:addrType/:addrId/:clientId', {
                 templateUrl: 'views/administration/EditAddress.html'
             })
@@ -907,7 +910,19 @@
             })
             .when('/entitydatatablechecks', {
                 templateUrl: 'views/organization/entitydatatablechecks/entitydatatablechecks.html'
+            }).when('/fooditems', {
+                templateUrl : 'views/foodcourt/fooditems.html'
             })
+            .when('/fooditems/create',{
+                templateUrl : 'views/foodcourt/createfooditem.html'
+            })
+            .when('/fooditems/view/:id',{
+                templateUrl : 'views/foodcourt/viewfooditem.html'
+            })
+            .when('/fooditems/edit/:id',{
+                templateUrl : 'views/foodcourt/editfooditem.html'
+            })
+
         ;
         $locationProvider.html5Mode(false);
     };

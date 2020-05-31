@@ -1,0 +1,54 @@
+<div class="col-md-12" ng-controller="CreateFoodItemController">
+    <ul class="breadcrumb">
+        <li><a href="#/fooditems">{{'label.anchor.food items' | translate}}</a></li>
+        <li class="active">{{'label.anchor.create.food.items' | translate}}</li>
+    </ul>
+    <form name="createfooditemform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.createfooditem' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="item">{{'label.input.item' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="item" name="item" ng-model="formData.item" class="form-control" required />
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createfooditemform" valattribute="item" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="price">{{'label.input.price' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="price" name="price" ng-model="formData.price" class="form-control" required
+                        late-Validate />
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createfooditemform" valattribute="price" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ratings">{{'label.input.ratings' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="ratings" name="ratings" ng-model="formData.ratings" class="form-control" required />
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createfooditemform" valattribute="ratings" />
+                </div>
+            </div>
+
+
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/fooditems" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary"
+                    has-permission='CREATE_FOOD_ITEMS'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
