@@ -61,6 +61,10 @@
                     {
                         if(data[i].addressId==addressId)
                         {
+                            if(data[i].street&&$scope.street)
+                            {
+                                $scope.formData.street=data[i].street;
+                            }
                             if(data[i].addressLine1&&$scope.addressLine1)
                             {
                                 $scope.formData.addressLine1=data[i].addressLine1;
@@ -107,7 +111,7 @@
                             }
                             if(data[i].isActive&&$scope.isActive)
                             {
-                                isActive=data[i].isActive;
+                                $scope.formData.isActive=data[i].isActive;
                             }
                         }
                     }

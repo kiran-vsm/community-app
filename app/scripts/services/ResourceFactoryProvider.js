@@ -555,7 +555,7 @@
                         put: {method: 'PUT', params:{}}
                     }),
                     clientaddressFields:defineResource(apiVer+"/client/addresses/template",{},{
-                            get:{method:'GET',params:{}}
+                            get:{method:'GET',params:{}, isArray : true}
                         }
                     ),
                     addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity",{},{

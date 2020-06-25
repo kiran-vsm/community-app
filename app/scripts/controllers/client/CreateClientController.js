@@ -314,13 +314,17 @@
 
                 if(scope.enableAddress===true)
                 {
-                    scope.formData.address = [];
+                    scope.formData.address = []; 
                     for(var i=0;i<scope.addressArray.length;i++)
                     {
                         var temp=new Object();
                         if(scope.addressArray[i].addressTypeId)
                         {
                             temp.addressTypeId=scope.addressArray[i].addressTypeId;
+                        }
+                        if(scope.addressArray[i].street)
+                        {
+                            temp.street=scope.addressArray[i].street;
                         }
                         if(scope.addressArray[i].addressLine1)
                         {

@@ -6,7 +6,14 @@
         <fieldset>
 
 
+            <div class="form-group" ng-show="street">
+                <label class="control-label col-sm-2" for="street">{{ 'label.input.street' | translate }}</label>
 
+                <div class="col-sm-3">
+                    <input type="text" id="street" name="street" ng-model="formData.street"  class="form-control">
+                </div>
+
+            </div>
 
             <div class="form-group" ng-show="addressLine1">
                 <label class="control-label col-sm-2" for="addressline1">{{ 'label.input.addressline1' | translate }}</label>
@@ -118,14 +125,14 @@
 
             </div>
 
-           <!-- <div class="form-group" ng-show="isActive">
+           <div class="form-group" ng-show="isActive">
 
                 <label class="control-label col-sm-2" for="isActive">{{'label.input.is_active' | translate}} </label>
                 <div class="col-sm-3">
                     <input id="isActive" class="input-mini-small" type="checkbox"
-                           ng-model="formData.is_active">
+                           ng-model="formData.isActive">
                 </div>
-            </div>-->
+            </div>
 
 
             <div class="col-md-offset-3" ng-model="editable">
