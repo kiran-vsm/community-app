@@ -292,6 +292,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'foodcourt/CreateFoodItemController',
             'foodcourt/ViewFoodItemController',
             'foodcourt/EditFoodItemController',
+            'subjectcategory/SubjectCategoryController',
+            'subjectcategory/CreateSubjectCategoryController',
+            'subjectcategory/ViewSubjectCategoryController',
+            'subjectcategory/EditSubjectCategoryController'
 
         ],
         filters: [

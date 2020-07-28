@@ -1,0 +1,23 @@
+<div class="col-md-12" ng-controller="SubjectCategoryController">
+    <ul class="breadcrumb">
+        <li>{{'label.anchor.library' | translate}}</li>
+        <li class="active">{{'label.anchor.subjectcategories' | translate}}</li>
+    </ul>
+    <a href="#/subjectcategory/create" class="btn btn-primary pull-right" has-permission='CREATE_SUBJECT_CATEGORY'><i
+            class="icon-plus icon-white"></i>{{'label.button.create.subject.category' | translate}}</a>
+
+    <table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.isActive' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pointer-main" ng-repeat="subjectCategory in subjectCategoriesData" ng-if="subjectCategory.isActive==true">
+                <td class="pointer" data-ng-click="routeTo(subjectCategory.id)">{{subjectCategory.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(subjectCategory.id)">{{subjectCategory.isActive}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

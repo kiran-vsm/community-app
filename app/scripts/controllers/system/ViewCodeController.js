@@ -8,6 +8,7 @@
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codename.name = data.name;
+                scope.codename.displayName = data.displayName;
             });
             resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id}, function (data) {
                 scope.codevalues = data;
@@ -36,7 +37,9 @@
             };
             scope.showEditCode = function () {
                 scope.newcode.edit = !scope.newcode.edit;
-                scope.codename.name = scope.code.name;
+                //scope.codename.name = scope.code.name;
+                //scope.codename.displayName = scope.code.displayName;
+               
             };
             scope.updateCode = function () {
                 resourceFactory.codeResources.update({codeId: routeParams.id}, this.codename, function (data) {

@@ -922,6 +922,18 @@
             .when('/fooditems/edit/:id',{
                 templateUrl : 'views/foodcourt/editfooditem.html'
             })
+            .when('/subjectcategories', {
+                templateUrl : 'views/subjectcategory/subjectcategory.html'
+            })
+            .when('/subjectcategory/create',{
+                templateUrl : 'views/subjectcategory/createsubjectcategory.html'
+            })
+            .when('/subjectcategory/view/:id',{
+                templateUrl : 'views/subjectcategory/viewsubjectcategory.html'
+            })
+            .when('/subjectcategory/edit/:id',{
+                templateUrl : 'views/subjectcategory/editsubjectcategory.html'
+            })
 
         ;
         $locationProvider.html5Mode(false);

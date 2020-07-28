@@ -655,6 +655,13 @@
                         get: { method: 'GET', params: {} },
                         update: { method: 'PUT', params: {} },
                         delete: { method:'DELETE', params: {} }
+                    }),
+                    subjectCategoryResource: defineResource(apiVer + "/subjectcategories/:subjectCategoryId", { subjectCategoryId: '@subjectCategoryId' }, {
+                        save: { method: 'POST', params: {} },
+                        getAll: { method: 'GET', params: {}, isArray: true},
+                        get: { method: 'GET', params: {} },
+                        update: { method: 'PUT', params: {} },
+                        delete: { method:'DELETE', params: {} }
                     })
                 };
             }];

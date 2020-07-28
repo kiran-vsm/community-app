@@ -1,0 +1,38 @@
+<div class="col-md-12" ng-controller="ViewSubjectCategoryController">
+        <ul class="breadcrumb">
+            <li><a href="#/subjectcategories">{{'label.anchor.subject.categories' | translate}}</a></li>
+            <li class="active">{{'label.anchor.view' | translate}}</li>
+        </ul>
+    
+    <div class="well">
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/subjectcategory/edit/{{subjectCategoryData.id}}" class="btn btn-primary"><i
+                        class="icon-edit icon-white"></i>
+                    {{'label.button.edit' | translate}}</a>
+
+                <a ng-click="delete()" class="btn btn-primary"><i class="icon-delete icon-white"></i>
+                    {{'label.button.delete' | translate}}</a>
+            </div>
+        </div>
+        
+        <h3 class="bolder">{{'label.heading.subject.category' | translate}}</h3>
+        <div class="row">
+            <div class="col-md-5">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>{{'label.heading.name' | translate}}:</td>
+                        <td>{{subjectCategoryData.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{'label.heading.isActive' | translate}}:</td>
+                        <td>{{subjectCategoryData.isActive}}</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

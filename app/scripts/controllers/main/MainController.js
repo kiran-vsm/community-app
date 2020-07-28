@@ -261,6 +261,14 @@
                         }
                     }
                 }
+                else if (route == 'subjectcategory') {
+                    var temp4 = ['/subjectcategory/'];
+                    for (var i in temp4) {
+                        if (temp4[i] == location.path()) {
+                            return true;
+                        }
+                    }
+                }
                 else {
                     var active = route === location.path();
                     return active;
